@@ -82,17 +82,11 @@ function generatePassword() {
 //Set the characters to be used in the password creation
 var firsttype = 0
 for (let i = 0; i < 4; i++) {
-  console.log("password array at start");
-  console.log(pswdarray[i]);
-  if ((pswdarray[i] === 'Y') &&  (firsttype === 0)) {
+   if ((pswdarray[i] === 'Y') &&  (firsttype === 0)) {
       firsttype++;
       pswdchars = pswddata[i]
-      console.log("first time")
-      console.log(pswdchars);
-    }else if (pswdarray[i] === 'Y'){
+   }else if (pswdarray[i] === 'Y'){
       pswdchars =pswdchars.concat(pswddata[i]) ; 
-      console.log("other time")
-      console.log(pswdchars);
     }
 }
 
