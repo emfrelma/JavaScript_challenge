@@ -12,11 +12,11 @@ function writePassword() {
 }
 
 function generatePassword() {
-// Ask user for their choice of length
-  var userLength = window.prompt("Password Length:  Please enter a number between 8 and 128");
+// Ask user for their choice
+  var userLength = window.prompt("Password Lenght:  Please enter a number between 8 and 128");
   userLength = parseInt(userLength);
 
-//Check for valid length and if it's invalid then exit   
+//Check for valid length   
   if (isNaN(userLength)  || userLength < 8 || userLength > 128) {
       alert("invalid length");
       return;
@@ -31,7 +31,6 @@ function generatePassword() {
     includeUpper = 'N';
   }
 
-  //Check to include lower case
   var includeLower = window.prompt("Include lower case Y/N");
   if (includeLower === 'Y' || includeLower === "y") {
     includeLower = 'Y';
@@ -39,7 +38,6 @@ function generatePassword() {
     includeLower = 'N';
   }
 
-  //Check to include numbers
   var includeNumeric = window.prompt("Include numbers Y/N");
   if (includeNumeric === 'Y' || includeNumeric === "y") {
     includeNumeric = 'Y';
@@ -47,69 +45,75 @@ function generatePassword() {
     includeNumeric = 'N';
   }
 
-  //Check to include special characters
   var includeSpecialChars = window.prompt("Include special characters Y/N");
   if (includeSpecialChars === 'Y' || includeSpecialChars === "y") {
     includeSpecialChars = 'Y';
   }else{
     includeSpecialChars = 'N';
   }
-  //for testing
+  //var includeUpper= confirm("include uppercase letters?") ;  
+  //var includeUpper = confirm("include uppercase letters?") ;    
+  //var includeLower = confirm("include lowercase letters?") ;  
+  //var includeNumeric = confirm("include numbers?") ;
+  //var includeSpecialChars = confirm("include special characters?") ;
   console.log(includeLower);
   console.log(includeUpper);
   console.log(includeNumeric);
   console.log(includeSpecialChars);
-
-  //check to make sure at least 1 type was selected.  If none were selected, exit. 
   if ((includeLower === 'N') && (includeUpper === 'N') && (includeNumeric ===  'N') && (includeSpecialChars ===  'N')){
     alert("At least one type must be selected");
+    console.log("loop")
     return;
   }
 
-  //Set valuse to use in password data generation
   var upperchars ='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var lowerchars = 'abcdefghijklmnopqrstuvwxy';
   var numberchars = '0123456789';
   var specialchars = '!@#$%^&*()_+';
-  var pswdchars = ' '  ;
+  var pswdchars = ' '
+  ;
 
-  //Setup array of Y/N decisions and valuses to include  
-  const pswdarray = [includeUpper, includeLower, includeNumeric, includeSpecialChars];
-  const pswddata = [upperchars, lowerchars, numberchars, specialchars]
-  console.log('PSWD String');
-  console.log(pswdarray);
+  if(includeUpper === 'Y') {
+    pswdchars = upperchars;
+  }
 
-//Set the characters to be used in the password creation
-var firsttype = 0
-for (let i = 0; i < 4; i++) {
-  console.log("password array at start");
-  console.log(pswdarray[i]);
-  if ((pswdarray[i] === 'Y') &&  (firsttype === 0)) {
-      firsttype++;
-      pswdchars = pswddata[i]
-      console.log("first time")
-      console.log(pswdchars);
-    }else if (pswdarray[i] === 'Y'){
-      pswdchars =pswdchars.concat(pswddata[i]) ; 
-      console.log("other time")
-      console.log(pswdchars);
-    }
-}
-
-
-  console.log("Generated pswd characters");  
+  if ( includeLower ==='Y') {
+      pswdchars = pswdchars.concat(lowerchars);
+  }
+  console.log("lower = no")
+  if ( includeNumeric ==='Y') {
+      pswdchars = pswdchars.concat(numberchars);
+  }
+  console.log("includenumeric = no")
+  if ( includeSpecialChars ==='Y') {
+        pswdchars =pswdchars.concat(specialchars) ;  
+  }
+    
   console.log(pswdchars);
-  
-  //Randomly generate the password based on lenght and data types selected 
+
+  //function generateString(userLength) {
     var result = ' ';
     const pswdcharslength = pswdchars.length;
     for ( let i = 0; i < userLength; i++ ) {
         result += pswdchars.charAt(Math.floor(Math.random() * pswdcharslength));
     }
-  console.log("password =  ");
-  console.log(result);
+console.log("password =  ");
+console.log(result);
  return result ;
 }
+//}
+ 
+  
+
+// Write password to the #password input
+//function writePassword() {
+//  var password = generatePassword();
+//  console.log(result);
+//  var passwordText = document.querySelector("#password");
+//
+//  passwordText.value = password;
+
+//}
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
